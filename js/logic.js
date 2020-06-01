@@ -6,6 +6,12 @@ let sumExpense = 0;
 let balansas = [];
 let balansasSum = 0;
 let minMenInc = 0;
+let maxIncome = -Infinity;
+let minIncome = Infinity;
+let maxExpense = -Infinity;
+let minExpense = Infinity;
+
+
 
 for (let i = 0; i < account.length; i++) {
     if (isFinite(account[i].income)) {
@@ -75,13 +81,11 @@ var vietaBalansas =document.querySelector('.balansas');
             }
             if (!isFinite(sortedAccount[i].income)) {
                 sortedAccount[i].income = '-';
-                console.log('Elementas:'+ i);
-                console.log(sortedAccount[i].income);
+                
             }    
             if (!isFinite(sortedAccount[i].expense)) {
                 sortedAccount[i].expense = '-';
-                console.log('Elementas:'+ i);
-                console.log(sortedAccount[i].expense);  
+                 
             } 
 
             if ((isFinite(sortedAccount[i].income)) && 
@@ -108,4 +112,56 @@ var vietaBalansas =document.querySelector('.balansas');
             </div>`;           
     }
             placeForTable.innerHTML = HTML;
+
+//  let maxIncome = -Infinity;
+//  let minIncome = Infinity;
+//  let maxExpense = -Infinity;
+//  let minExpense = Infinity;
+var keyMaxIncome,
+    keyMaxExpense,
+    keyMinIncome,
+    keyMinExpense;
+
+
+sortedAccount.forEach(function(v, k) {
+    if (maxIncome < +v.income) {
+        maxIncome = +v.income;
+        keyMaxIncome = k;
+    }
+    if (maxExpense < +v.expense) {
+        maxExpense = +v.expense;
+        keyMaxExpense = k;
+    }
+    if ((minIncome > +v.income) && 
+        (+v.income > 0)) {
+        minIncome = +v.income;
+        keyMinIncome = k;
+    }
+    if ((minExpense > +v.expense) && 
+        (+v.expense > 0)) {
+        minExpense = +v.expense;
+        keyMinExpense = k;
+    }
+        
+});
+
+
+var menesiai = ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis',
+    'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis']
+
+
+var vietaMaxIncome = document.getElementById('maxIncome');
+vietaMaxIncome.innerHTML = menesiai[keyMaxIncome];
+
+var vietaMaxExpense = document.getElementById('maxExpense');
+vietaMaxExpense.innerHTML = menesiai[keyMaxExpense];
+
+var vietaMinIncome = document.getElementById('minIncome');
+vietaMinIncome.innerHTML = menesiai[keyMinIncome];
+
+var vietaMinExpense = document.getElementById('MinExpense');
+vietaMinExpense.innerHTML = menesiai[keyMinExpense];
+
+
+
 
